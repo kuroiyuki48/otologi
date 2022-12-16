@@ -4,11 +4,11 @@ switch ($_GET['act']) {
 
   default:
     if ($_POST['submit']) {
-      $arcolor = array('#ffffff', '#cc66ff', '#019AFF', '#00CBFD', '#00FEFE', '#A4F804', '#FFFC00', '#FDCD01', '#FD9A01', '#FB6700');
+      $arcolor = array('#cc66ff', '#019AFF', '#00CBFD', '#00FEFE', '#A4F804');
       date_default_timezone_set("Asia/Jakarta");
       $inptanggal = date('Y-m-d H:i:s');
 
-      $arbobot = array('0', '1', '0.8', '0.6', '0.4', '-0.2', '-0.4', '-0.6', '-0.8', '-1');
+      $arbobot = array('0.2', '0.4', '0.6', '0.8', '1.0');
       $argejala = array();
 
       for ($i = 0; $i < count($_POST['kondisi']); $i++) {
