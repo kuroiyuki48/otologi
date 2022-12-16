@@ -1,4 +1,4 @@
-<title>Detail Riwayat - Otologi 1.0</title>
+<title>Detail Riwayat - Ontologi 1.0</title>
 <?php
 
 if ($_GET['id']) {

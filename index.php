@@ -49,16 +49,16 @@ include "config/fungsi_alert.php";
     <!-- AdminLTE App -->
     <script src="aset/app.js"></script>
   </head>
-  <body id="pakarayam" class="hold-transition skin-purple-light sidebar-mini">
+  <body id="pakartht" class="hold-transition skin-purple-light sidebar-mini">
     <div class="wrapper">
       <!-- Main Header -->
       <header class="main-header">
         <!-- Logo -->
         <a href="./" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b><i class="fa fa-contao" aria-hidden="true"></i>XS</b></span>
+          <span class="logo-mini"><b></i>ONT</b></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b><i class="fa fa-contao" aria-hidden="true"></i>hirexs 1.0</b></span>
+          <span class="logo-lg"><b></i>Ontologi</b></span>
         </a>
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -83,7 +83,7 @@ include "config/fungsi_alert.php";
                         <img src="gambar/admin/admin.png" class="img-circle" alt="User Image">
                         <p>
                          Login sebagai <?php echo ucfirst($_SESSION['username']); ?>
-                          <small>Pakar dari Otologi 1.0</small>
+                          <small>Pakar dari Ontologi 1.0</small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -228,7 +228,7 @@ function kirimContactForm(){
     }
 }
 </script>
-        <strong><div class="cinta">Copyright © 2017 - Made with <i class="fa fa-heart pulse"></i> by <a href="http://januriawan.github.io" target="_blank">Januriawan</a></div></strong>
+        <strong><div class="cinta">Copyright © 2022 - Made with <i class="fa fa-heart pulse"></i> by <a href="" target="_blank">2A123</a></div></strong>
       </footer>
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->

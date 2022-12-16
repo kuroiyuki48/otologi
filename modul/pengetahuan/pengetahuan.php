@@ -1,4 +1,4 @@
-<title>Pengetahuan - Otologi 1.0</title>
+<title>Pengetahuan - Ontologi 1.0</title>
 <?php
 
 session_start();

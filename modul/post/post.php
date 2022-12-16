@@ -1,4 +1,4 @@
-<title>Post - Otologi 1.0</title>
+<title>Post - Ontologi 1.0</title>
 <script type="text/javascript">
     function Blank_TextField_Validator()
     {

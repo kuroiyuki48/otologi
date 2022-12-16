@@ -1,4 +1,4 @@
-<title>Diagnosa - Otologi 1.0</title>
+<title>Diagnosa - Ontologi 1.0</title>
 <?php
 switch ($_GET['act']) {
 
@@ -8,7 +8,7 @@ switch ($_GET['act']) {
       date_default_timezone_set("Asia/Jakarta");
       $inptanggal = date('Y-m-d H:i:s');
 
-      $arbobot = array('0.2', '0.4', '0.6', '0.8', '1.0');
+      // $arbobot = array('0.2', '0.4', '0.6', '0.8', '1.0');
       $argejala = array();
 
       for ($i = 0; $i < count($_POST['kondisi']); $i++) {
@@ -38,9 +38,9 @@ switch ($_GET['act']) {
       $arpenyakit = array();
       while ($rpenyakit = mysqli_fetch_array($sqlpenyakit)) {
         $cftotal_temp = 0;
-        $cf = 0;
+        $cf2 = 0;
         $sqlgejala = mysqli_query($conn, "SELECT * FROM basis_pengetahuan where kode_penyakit=$rpenyakit[kode_penyakit]");
-        $cflama = 0;
+        $cf1 = 0;
         while ($rgejala = mysqli_fetch_array($sqlgejala)) {
           $arkondisi = explode("_", $_POST['kondisi'][0]);
           $gejala = $arkondisi[0];
@@ -48,26 +48,30 @@ switch ($_GET['act']) {
           for ($i = 0; $i < count($_POST['kondisi']); $i++) {
             $arkondisi = explode("_", $_POST['kondisi'][$i]);
             $gejala = $arkondisi[0];
+            $get_bobot = mysqli_query($conn, "SELECT * FROM kondisi where id=$arkondisi[1] LIMIT 1");
+            $bobot = mysqli_fetch_assoc($get_bobot);
             if ($rgejala['kode_gejala'] == $gejala) {
-              $cf = ($rgejala['mb'] - $rgejala['md']) * $arbobot[$arkondisi[1]];
-              if (($cf >= 0) && ($cf * $cflama >= 0)) {
-                $cflama = $cflama + ($cf * (1 - $cflama));
+              $cf2 = $rgejala['mb'] * $bobot['bobot'];
+              if (($cf2 >= 0) && ($cf2 * $cf1 >= 0)) {
+                $cf1 = $cf1 + ($cf2 * (1 - $cf1));
               }
-              if ($cf * $cflama < 0) {
-                $cflama = ($cflama + $cf) / (1 - Math . Min(Math . abs($cflama), Math . abs($cf)));
+              if ($cf2 * $cf1 < 0) {
+                $cf1 = ($cf1 + $cf) / (1 - Math . Min(Math . abs($cf1), Math . abs($cf)));
               }
-              if (($cf < 0) && ($cf * $cflama >= 0)) {
-                $cflama = $cflama + ($cf * (1 + $cflama));
+              if (($cf2 < 0) && ($cf2 * $cf1 >= 0)) {
+                $cf1 = $cf1 + ($cf2 * (1 + $cf1));
               }
             }
           }
         }
-        if ($cflama > 0) {
-          $arpenyakit += array($rpenyakit[kode_penyakit] => number_format($cflama, 4));
+        if ($cf1 > 0) {
+          $arpenyakit += array($rpenyakit[kode_penyakit] => number_format($cf1, 4));
         }
       }
 
       arsort($arpenyakit);
+      // print_r($cf);
+      // die();
 
       $inpgejala = serialize($argejala);
       $inppenyakit = serialize($arpenyakit);
@@ -96,7 +100,6 @@ switch ($_GET['act']) {
 // --------------------- END -------------------------
 
       echo "<div class='content'>
-	<h2 class='text text-primary'>Hasil Diagnosis &nbsp;&nbsp;<button id='print' onClick='window.print();' data-toggle='tooltip' data-placement='right' title='Klik tombol ini untuk mencetak hasil diagnosa'><i class='fa fa-print'></i> Cetak</button> </h2>
 	          <hr><table class='table table-bordered table-striped diagnosa'> 
           <th width=8%>No</th>
           <th width=10%>Kode</th>
@@ -128,7 +131,7 @@ switch ($_GET['act']) {
         $gambar = 'gambar/noimage.png';
       }
       echo "</table><div class='well well-small'><img class='card-img-top img-bordered-sm' style='float:right; margin-left:15px;' src='" . $gambar . "' height=200><h3>Hasil Diagnosa</h3>";
-      echo "<div class='callout callout-default'>Jenis penyakit yang diderita adalah <b><h3 class='text text-success'>" . $nmpkt[1] . "</b> / " . round($vlpkt[1], 2) . " % (" . $vlpkt[1] . ")<br></h3>";
+      echo "<div class='callout callout-default'>Jenis penyakit yang diderita adalah <b><h3 class='text text-success'>" . $nmpkt[1] . "</b> / " . round(($vlpkt[1] * 100), 2) . " % (" . $vlpkt[1] . ")<br></h3>";
       echo "</div></div><div class='box box-info box-solid'><div class='box-header with-border'><h3 class='box-title'>Detail</h3></div><div class='box-body'><h4>";
       echo $ardpkt[$idpkt[1]];
       echo "</h4></div></div>
@@ -137,7 +140,7 @@ switch ($_GET['act']) {
       echo "</h4></div></div>
           <div class='box box-danger box-solid'><div class='box-header with-border'><h3 class='box-title'>Kemungkinan lain:</h3></div><div class='box-body'><h4>";
       for ($ipl = 2; $ipl < count($idpkt); $ipl++) {
-        echo " <h4><i class='fa fa-caret-square-o-right'></i> " . $nmpkt[$ipl] . "</b> / " . round($vlpkt[$ipl], 2) . " % (" . $vlpkt[$ipl] . ")<br></h4>";
+        echo " <h4><i class='fa fa-caret-square-o-right'></i> " . $nmpkt[$ipl] . "</b> / " . round(($vlpkt[$ipl] * 100), 2) . " % (" . $vlpkt[$ipl] . ")<br></h4>";
       }
       echo "</div></div>
 		  </div>";
@@ -147,7 +150,7 @@ switch ($_GET['act']) {
 	 <div class='alert alert-success alert-dismissible'>
                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>
                 <h4><i class='icon fa fa-exclamation-triangle'></i>Perhatian !</h4>
-                Silahkan memilih gejala sesuai dengan kondisi ayam anda, anda dapat memilih kepastian kondisi ayam dari pasti tidak sampai pasti ya, jika sudah tekan tombol proses (<i class='fa fa-search-plus'></i>)  di bawah untuk melihat hasil.
+                Silahkan memilih gejala sesuai dengan kondisi kesehatan anda, anda dapat memilih kepastian kondisi kesehatan dari pasti tidak sampai pasti ya, jika sudah tekan tombol proses (<i class='fa fa-search-plus'></i>)  di bawah untuk melihat hasil.
               </div>
 		<form name=text_form method=POST action='diagnosa' >
            <table class='table table-bordered table-striped konsultasi'><tbody class='pilihkondisi'>

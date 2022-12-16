@@ -1,4 +1,4 @@
- <title>Login Gagal ! - Otologi 1.0</title>
+ <title>Login Gagal ! - Ontologi 1.0</title>
 <?php
 session_start();
 include "config/koneksi.php";
@@ -18,7 +18,7 @@ if ($ketemu>0) {
 }
 else{
   echo " <link href='css/font-awesome-4.2.0/font-awesome-4.2.0/css/font-awesome.min.css' rel='stylesheet'>
-		<link rel='stylesheet' href='animasi/login/ayam.css'>
+		<link rel='stylesheet' href='animasi/login/tht.css'>
 		<link rel='stylesheet' href='aset/cinta.css'>
 		<link href='css/main.css' rel='stylesheet' type='text/css' media='all'/>
 		    <link rel='stylesheet' href='aset/bootstrap.css'>

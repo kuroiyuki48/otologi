@@ -1,4 +1,4 @@
-<title>Gejala - Otologi 1.0</title>
+<title>Gejala - Ontologi 1.0</title>
 <?php
 
 session_start();

@@ -132,7 +132,7 @@ table.table-bordered.riwayat td {
 
 
 span.kondisipilih {
-    background-color: #2f2130;
+    background-color: unset;
     padding: 2px 4px;
     border-radius: 4px;
 }

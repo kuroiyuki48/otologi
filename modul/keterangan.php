@@ -1,4 +1,4 @@
-<title>Keterangan - Otologi 1.0</title>
+<title>Keterangan - Ontologi 1.0</title>
 <h2 class='text text-primary'>Keterangan</h2>
 <hr>
 <div class="row">

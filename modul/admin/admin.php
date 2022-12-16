@@ -1,4 +1,4 @@
-<title>Admin - Otologi 1.0</title>
+<title>Admin - Ontologi 1.0</title>
 <?php
 session_start();
 if (!(isset($_SESSION['username']) && isset($_SESSION['password']))) {
